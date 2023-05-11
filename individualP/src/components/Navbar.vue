@@ -28,7 +28,7 @@ export default {
 
             </div>
             <div class="navbar-center">
-                <RouterLink to="/">SozMedia</RouterLink>
+                <RouterLink to="/">MyMusicMylyfe</RouterLink>
             </div>
             <div class="navbar-end">
                 <button class="btn btn-ghost btn-circle">

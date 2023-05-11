@@ -1,12 +1,37 @@
 <script>
 import { RouterView, RouterLink } from 'vue-router'
 import NavBar from './components/Navbar.vue'
+import User from './components/User.vue';
+// import { mapState } from 'pinia';
+// import { useMusicStore } from './stores/counter';
 export default {
   name: 'App',
   components: {
-    NavBar
+    NavBar,
+    User
+  },
+  methods: {
+    checkLogin() {
+      if (localStorage.getItem('access_token'))
+        this.isLoggedin = true
+      else this.isLoggedin = false
+    },
+    logout() {
+      localStorage.clear()
+      this.isLoggedin = false
+    }
+  },
+  created() {
+    this.checkLogin()
+  },
+
+  data() {
+    return {
+      isLoggedin: '',
+    }
   }
 }
+
 </script>
 
 <template>
@@ -27,6 +52,7 @@ export default {
 
             <div class="flex justify-between">
               <h2 class=" text-xl font-bold pl-10 pt-2">Posting</h2>
+              <User v-if="isLoggedin" :isLoggedin="isLoggedin" @logout="logout" />
             </div>
 
             <RouterView />
@@ -41,8 +67,15 @@ export default {
         <label for="my-drawer" class="drawer-overlay"></label>
         <ul class="menu p-4 w-80 bg-base-100 text-base-content">
           <!-- Sidebar content here -->
-          <li><a @click="goregister">Register</a></li>
-          <li><a @click="gologin">Login</a></li>
+          <RouterLink to="/register">
+            <li><a @click="goregister">Register</a></li>
+          </RouterLink>
+          <RouterLink to="/login">
+            <li><a @click="gologin">Login</a></li>
+          </RouterLink>
+          <RouterLink to="/createPlayer">
+            <li><a>Create Player</a></li>
+          </RouterLink>
 
 
 

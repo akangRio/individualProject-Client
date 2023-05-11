@@ -1,15 +1,14 @@
 <script>
 import { mapActions, mapState } from 'pinia';
-import { useMusicStore } from '../stores/counter';
-import { RouterLink } from 'vue-router';
+import { useMusicStore } from '../stores/counter.js'
 
 export default {
-    name: 'LoginView',
+    name: 'RegisterView',
     methods: {
-        ...mapActions(useMusicStore, ['spotifyLogin', 'login'])
+        ...mapActions(useMusicStore, ['register'])
     },
     computed: {
-        ...mapState(useMusicStore, ['loginData'])
+        ...mapState(useMusicStore, ['registerData'])
     }
 }
 </script>
@@ -22,7 +21,7 @@ export default {
             <div class="text-center lg:text-left">
 
 
-                <h1 class="text-5xl text-neutral-content font-bold">Login now!</h1>
+                <h1 class="text-5xl text-neutral-content font-bold">Register now!</h1>
                 <p class="py-6  text-neutral-content">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
                     excepturi
                     exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
@@ -33,24 +32,18 @@ export default {
                         <label class="label">
                             <span class="label-text">Email</span>
                         </label>
-                        <input type="text" placeholder="email" class="input input-bordered" v-model="loginData.email" />
+                        <input type="text" placeholder="email" class="input input-bordered" v-model="registerData.email" />
                     </div>
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Password</span>
                         </label>
                         <input type="password" placeholder="password" class="input input-bordered"
-                            v-model="loginData.password" />
+                            v-model="registerData.password" />
                     </div>
                     <div class="form-control mt-6" data-theme="cmyk">
-                        <button class="btn btn-primary" @click="login">Login</button>
+                        <button class="btn btn-primary" @click="register">Register</button>
                     </div>
-                    <label class="label">
-                        <RouterLink to="/register"> <a href="#" class="label-text-alt link link-hover">dont have
-                                acount?
-                                Sign
-                                up.</a> </RouterLink>
-                    </label>
                     <!-- <div class="flex justify-center">
                         <GoogleLogin :callback="googleLogin" />
                     </div> -->
