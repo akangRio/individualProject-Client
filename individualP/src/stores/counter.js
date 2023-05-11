@@ -1,8 +1,11 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-const baseUrl = "http://localhost:3000";
+// const baseUrl = "http://localhost:3000";
+const baseUrl = "https://individualp-production.up.railway.app";
 import querystring from "querystring";
 import router from "../router";
+// const redirecturi = "http://localhost:5173/callback"
+const redirecturi = "https://individualp-92f62.web.app/callback";
 
 export const useMusicStore = defineStore("music", {
   state() {
@@ -27,7 +30,7 @@ export const useMusicStore = defineStore("music", {
       try {
         let scope = "user-read-private user-read-email";
         const client_id = "ccccac09d6a642e7b4d45b5ede1e7525";
-        let redirect_uri = "http://localhost:5173/callback";
+        let redirect_uri = redirecturi;
         let spotifyUrl =
           "https://accounts.spotify.com/authorize?" +
           querystring.stringify({
