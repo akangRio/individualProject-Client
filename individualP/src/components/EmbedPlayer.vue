@@ -9,5 +9,8 @@ export default {
 </script>
 
 <template>
-    <div :id="i + 1" class="h-min"></div>
+    <div>
+        <div :id="i + 1"></div>
+
+    </div>
 </template>

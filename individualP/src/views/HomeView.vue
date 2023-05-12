@@ -3,6 +3,9 @@ import { mapActions, mapState } from 'pinia';
 import EmbedPlayer from '../components/EmbedPlayer.vue';
 import ProfileCard from '../components/ProfileCard.vue';
 import { useMusicStore } from '../stores/counter';
+import User from '../components/User.vue';
+import Info from '../components/Info.vue';
+
 export default {
   name: 'HomeView',
   methods: {
@@ -16,10 +19,13 @@ export default {
   },
   components: {
     EmbedPlayer,
-    ProfileCard
+    ProfileCard,
+    User,
+    Info
+
   },
   mounted() {
-
+    ;
     this.dynamicallyLoadScript('https://open.spotify.com/embed-podcast/iframe-api/v1')
 
     window.onSpotifyIframeApiReady = (IFrameAPI) => {
@@ -29,7 +35,8 @@ export default {
           uri: uri.uri,
           //'spotify:album:2up3OPMp9Tb4dAKM2erWXQ'
         };
-        const callback = (EmbedController) => { };
+        const callback = (EmbedController) => {
+        };
 
         IFrameAPI.createController(element, options, callback);
       })
@@ -47,7 +54,12 @@ export default {
     ...mapState(useMusicStore, ['players'])
   },
   created() {
+
     this.fetchPlayers()
+  },
+  unmounted() {
+
+
   }
 
 }
@@ -56,8 +68,16 @@ export default {
 </script>
 
 <template>
-  <div class="grid grid-cols-2 grid-rows-auto">
-    <ProfileCard />
+  <div class="flex justify-between">
+    <h2 class=" text-xl font-bold pl-10 pt-2">My Music</h2>
+    <User />
+  </div>
+
+
+  <Info v-if="players.length == 0" />
+
+  <div v-if="players.length > 0" class="grid grid-cols-2 grid-rows-auto">
+    <!-- <ProfileCard /> -->
     <EmbedPlayer v-for="(e, i) in players" :key="i" :i="i" :e="e" />
 
 

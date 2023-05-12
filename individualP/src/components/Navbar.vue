@@ -1,6 +1,16 @@
 <script>
 export default {
-    name: 'Navbar'
+    name: 'Navbar',
+    methods: {
+        goFav() {
+            window.location.href('')
+        },
+        goHome() {
+
+            this.$router.push('/')
+
+        }
+    },
 }
 </script>
 
@@ -27,8 +37,8 @@ export default {
                 </div>
 
             </div>
-            <div class="navbar-center">
-                <RouterLink to="/">MyMusicMylyfe</RouterLink>
+            <div class="navbar-center" @click="goHome">
+                MyMusicMylyfe
             </div>
             <div class="navbar-end">
                 <button class="btn btn-ghost btn-circle">

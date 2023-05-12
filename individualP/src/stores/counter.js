@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-// const baseUrl = "http://localhost:3000";
-const baseUrl = "https://individualp-production.up.railway.app";
+const baseUrl = "http://localhost:3000";
+// const baseUrl = "https://individualp-production.up.railway.app";
 import querystring from "querystring";
 import router from "../router";
-// const redirecturi = "http://localhost:5173/callback"
-const redirecturi = "https://individualp-92f62.web.app/callback";
+const redirecturi = "http://localhost:5173/callback";
+// const redirecturi = "https://final-56b4c.web.app/callback";
 
 export const useMusicStore = defineStore("music", {
   state() {
@@ -23,6 +23,7 @@ export const useMusicStore = defineStore("music", {
         password: "",
       },
       players: [],
+      // qr: "",
     };
   },
   actions: {
@@ -57,8 +58,10 @@ export const useMusicStore = defineStore("music", {
         });
 
         localStorage.setItem("access_token", spotAuthing.data.access_token);
+        localStorage.setItem("email", spotAuthing.data.email);
         router.push("/");
         console.log(spotAuthing);
+        // this.qr = spotAuthing.data.qr;
       } catch (err) {
         console.log(err);
       }
@@ -73,7 +76,7 @@ export const useMusicStore = defineStore("music", {
 
     async spotifySearch() {
       try {
-        const songs = await axios.post(`${baseUrl}/search`, this.searchTrack, {
+        const songs = await axios.post(`${baseUrl}/spot`, this.searchTrack, {
           headers: {
             access_token: localStorage.getItem("access_token"),
           },
@@ -91,12 +94,25 @@ export const useMusicStore = defineStore("music", {
         const lo = await axios.post(`${baseUrl}/userlogin`, this.loginData);
         console.log(lo);
         if (lo) {
-          localStorage.setItem("access_token", lo.data);
+          localStorage.setItem("access_token", lo.data.access_token);
+          localStorage.setItem("email", lo.data.email);
           this.isLoggedin = true;
           router.push("/");
         }
+        Swal.fire({
+          title: "Succes!",
+          text: "Welcome",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
       } catch (err) {
         console.log(err);
+        Swal.fire({
+          title: "Error!",
+          text: "umail / password is invallid",
+          icon: "error",
+          confirmButtonText: "try again",
+        });
       }
     },
 
@@ -129,6 +145,11 @@ export const useMusicStore = defineStore("music", {
             },
           }
         );
+        Swal.fire({
+          title: "Success!",
+          text: "added to your music",
+          icon: "success",
+        });
       } catch (err) {
         console.log(err);
       }

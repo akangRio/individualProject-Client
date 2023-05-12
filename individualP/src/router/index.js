@@ -46,7 +46,9 @@ router.beforeEach((to, from, next) => {
     to.name === "createPlayer" &&
     !localStorage.getItem("access_token")
   ) {
-    next({ path: "/" });
+    next({ path: "/login" });
+  } else if (to.name === "home" && !localStorage.getItem("access_token")) {
+    next({ path: "/login" });
   } else {
     next();
   }

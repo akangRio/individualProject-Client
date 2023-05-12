@@ -2,6 +2,7 @@
 import { mapActions, mapState } from 'pinia';
 import { useMusicStore } from '../stores/counter';
 import { RouterLink } from 'vue-router';
+import User from '../components/User.vue';
 
 export default {
     name: 'LoginView',
@@ -10,11 +11,19 @@ export default {
     },
     computed: {
         ...mapState(useMusicStore, ['loginData'])
+    },
+    components: {
+        User
     }
 }
 </script>
 
 <template>
+    <div class="flex justify-between">
+        <h2 class=" text-xl font-bold pl-10 pt-2">My Music</h2>
+        <User />
+    </div>
+
     <div class="hero min-h-screen bg-base-200 rounded-xl"
         style="background-image: url(https://images.unsplash.com/photo-1625786682948-2168238883d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3087&q=80);">
         <div class="hero-overlay bg-opacity-20 rounded-xl"></div>

@@ -1,35 +1,27 @@
 <script>
 import { RouterView, RouterLink } from 'vue-router'
 import NavBar from './components/Navbar.vue'
-import User from './components/User.vue';
 // import { mapState } from 'pinia';
 // import { useMusicStore } from './stores/counter';
 export default {
   name: 'App',
   components: {
     NavBar,
-    User
   },
   methods: {
-    checkLogin() {
-      if (localStorage.getItem('access_token'))
-        this.isLoggedin = true
-      else this.isLoggedin = false
+    isL() {
+      if (localStorage.getItem('access_token')) {
+        this.log = true
+      } else {
+        this.log = false
+      }
     },
-    logout() {
-      localStorage.clear()
-      this.isLoggedin = false
-    }
   },
-  created() {
-    this.checkLogin()
-  },
-
   data() {
     return {
-      isLoggedin: '',
+      log: ''
     }
-  }
+  },
 }
 
 </script>
@@ -38,7 +30,7 @@ export default {
   <div class="bg-gradient-to-r from-cyan-500 to-green-500">
 
     <NavBar />
-    <div class="drawer h-auto">
+    <div class="drawer h-screen">
 
       <!-- <DrawerContent /> -->
 
@@ -47,16 +39,11 @@ export default {
       <div class="drawer-content">
 
         <!-- Drawer-content here -->
-        <div class="border bg-base-300 m-2 text-base-content rounded-xl">
-          <div>
+        <div class="border bg-base-300 m-2 text-base-content h-auto rounded-xl min-h-screen h-4/6">
 
-            <div class="flex justify-between">
-              <h2 class=" text-xl font-bold pl-10 pt-2">Posting</h2>
-              <User v-if="isLoggedin" :isLoggedin="isLoggedin" @logout="logout" />
-            </div>
 
-            <RouterView />
-          </div>
+          <RouterView @vnodeBeforeUpdate="isL" />
+
         </div>
 
       </div>
@@ -67,13 +54,13 @@ export default {
         <label for="my-drawer" class="drawer-overlay"></label>
         <ul class="menu p-4 w-80 bg-base-100 text-base-content">
           <!-- Sidebar content here -->
-          <RouterLink to="/register">
+          <RouterLink v-if="!log" to="/register">
             <li><a @click="goregister">Register</a></li>
           </RouterLink>
-          <RouterLink to="/login">
+          <RouterLink v-if="!log" to="/login">
             <li><a @click="gologin">Login</a></li>
           </RouterLink>
-          <RouterLink to="/createPlayer">
+          <RouterLink v-if="log" to="/createPlayer">
             <li><a>Create Player</a></li>
           </RouterLink>
 

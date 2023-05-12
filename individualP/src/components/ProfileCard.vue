@@ -1,5 +1,7 @@
 <script>
+import { mapState } from 'pinia';
 import EmbedPlayer from './EmbedPlayer.vue';
+import { useMusicStore } from '../stores/counter';
 export default {
     name: 'ProfileCard',
     components: {
@@ -16,9 +18,8 @@ export default {
 
             <div tabindex="0">
                 <div class="online avatar">
-                    <div class="mask mask-squircle bg-base-content h-24 w-24 bg-opacity-10 p-px m-2"><img
-                            src="https://i.scdn.co/image/ab6775700000ee852a796a98ea8432e14e91460a" width="94" height="94"
-                            alt="Avatar Tailwind CSS Component" class="mask mask-squircle"></div>
+                    <div class="mask mask-squircle bg-base-content h-24 w-24 bg-opacity-10 p-px m-2"><img src="" width="94"
+                            height="94" alt="Avatar Tailwind CSS Component" class="mask mask-squircle"></div>
                 </div>
             </div>
 
